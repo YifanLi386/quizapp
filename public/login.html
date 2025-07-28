@@ -6,7 +6,7 @@
 </div><script>
 async function login(){
 const u=document.getElementById('username').value,p=document.getElementById('password').value;
-const res=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
+const res=await fetch('https://quizapp-fd1z.onrender.com/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
 const data=await res.json();
 if(res.ok){localStorage.setItem('loggedInUser',u);location='quiz.html';}else document.getElementById('errorMsg').innerText=data.error;}
 </script></body></html>
