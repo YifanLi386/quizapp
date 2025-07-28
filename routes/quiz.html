@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quiz</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="neon-text">Quiz Time!</h1>
+    <p id="timer">Time Left: 60s</p>
+    <div id="quiz-box"></div>
+    <button id="next-btn" class="neon-btn" onclick="nextQuestion()">Next</button>
+</div>
+<script>
+let questions = [];
+let currentIndex = 0;
+let timer;
+let timeLeft = 60;
+const num = new URLSearchParams(window.location.search).get('num') || 5;
+
+async function fetchQuestions(){
+    const res = await fetch(`/api/quiz/questions?num=${num}`);
+    questions = await res.json();
+    showQuestion();
+}
+
+function showQuestion(){
+    clearInterval(timer);
+    timeLeft = 60;
+    document.getElementById('timer').textContent = `Time Left: ${timeLeft}s`;
+    timer = setInterval(()=>{
+        timeLeft--;
+        document.getElementById('timer').textContent = `Time Left: ${timeLeft}s`;
+        if(timeLeft<=0){ nextQuestion(); }
+    },1000);
+    
+    const q = questions[currentIndex];
+    const quizBox = document.getElementById('quiz-box');
+    quizBox.innerHTML = `<h3>${q.question}</h3>` + q.answers.map(a=>`<button class='option-btn' onclick='selectAnswer("${a}")'>${a}</button>`).join('');
+}
+
+function selectAnswer(ans){
+    clearInterval(timer);
+    nextQuestion();
+}
+
+function nextQuestion(){
+    currentIndex++;
+    if(currentIndex < questions.length){
+        showQuestion();
+    } else {
+        alert('Quiz finished!');
+        window.location.href = 'results.html';
+    }
+}
+
+fetchQuestions();
+</script>
+</body>
+</html>

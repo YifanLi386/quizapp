@@ -1,0 +1,12 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Login</title><link rel="stylesheet" href="style.css"></head><body><div class="container"><h2 class="neon-text">Login</h2>
+<input id="username" class="neon-input" placeholder="Username">
+<input id="password" class="neon-input" type="password" placeholder="Password">
+<p id="errorMsg" style="color:red"></p>
+<button class="neon-btn" onclick="login()">Login</button>
+</div><script>
+async function login(){
+const u=document.getElementById('username').value,p=document.getElementById('password').value;
+const res=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
+const data=await res.json();
+if(res.ok){localStorage.setItem('loggedInUser',u);location='quiz.html';}else document.getElementById('errorMsg').innerText=data.error;}
+</script></body></html>

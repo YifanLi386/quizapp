@@ -1,0 +1,12 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Quiz Home</title><link rel="stylesheet" href="style.css"><style>
+#loading {position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:black;z-index:9999;color:#fff;font-size:2em;text-shadow:0 0 10px #00f7ff,0 0 20px #ff00de;}
+.fade-out {animation: fadeOut 1s forwards;}
+@keyframes fadeOut {to{opacity:0;visibility:hidden;}}
+</style></head><body>
+<div id="loading">Welcome to the Quiz</div>
+<div class="container" style="display:none;"><h1 class="neon-text">Welcome to Quiz!</h1>
+<a href="signup.html" class="link-btn">Sign Up</a>
+<a href="login.html" class="link-btn">Login</a>
+<a href="leaderboard.html" class="link-btn">Leaderboard</a></div>
+<script>setTimeout(()=>{document.getElementById('loading').classList.add('fade-out');setTimeout(()=>{document.querySelector('.container').style.display='block';},1000);},2000);</script>
+</body></html>

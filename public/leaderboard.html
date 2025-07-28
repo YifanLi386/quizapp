@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Leaderboard</title>
+<link rel="stylesheet" href="style.css"></head>
+<body>
+<div class="container">
+<h1 class="neon-text">Leaderboard</h1>
+<table id="board" class="neon-text"></table>
+<a href="index.html" class="link-btn">Back Home</a>
+</div>
+<script>
+async function load(){
+ const res=await fetch('/api/leaderboard');
+ const data=await res.json();
+ let html='<tr><th>User</th><th>Score</th></tr>';
+ data.forEach(row=>{html+=`<tr><td>${row.username}</td><td>${row.bestScore}</td></tr>`});
+ document.getElementById('board').innerHTML=html;
+}
+load();
+</script>
+</body>
+</html>

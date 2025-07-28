@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Sign Up</title><link rel="stylesheet" href="style.css"></head><body><div class="container"><h2 class="neon-text">Sign Up</h2>
+<input id="username" class="neon-input" placeholder="Username">
+<input id="password" class="neon-input" type="password" placeholder="Password">
+<p id="errorMsg" style="color:red"></p>
+<button class="neon-btn" onclick="signup()">Sign Up</button>
+<a href="index.html" class="link-btn">Back</a>
+</div><script>
+async function signup(){
+const u=document.getElementById('username').value,p=document.getElementById('password').value;
+const res=await fetch('/api/auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
+const data=await res.json();
+if(res.ok){alert('OK');location='login.html';}else document.getElementById('errorMsg').innerText=data.error;}
+</script></body></html>

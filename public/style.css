@@ -1,0 +1,175 @@
+body {font-family:Arial;background:url('images/bg.jpg') no-repeat center/cover;height:100vh;display:flex;align-items:center;justify-content:center;color:#fff;margin:0;}
+.container{text-align:center;background:rgba(0,0,0,0.7);padding:30px;border-radius:12px;box-shadow:0 0 15px #00f7ff,0 0 25px #ff00de;}
+.neon-text{font-size:2em;text-shadow:0 0 10px #fff,0 0 20px #ff00de,0 0 30px #00f7ff;}
+.neon-btn,.link-btn{border:2px solid #00f7ff;padding:10px 20px;margin:10px;color:#00f7ff;background:transparent;cursor:pointer;transition:.3s;text-decoration:none;text-transform:uppercase;}
+.neon-btn:hover,.link-btn:hover{transform:scale(1.1);box-shadow:0 0 15px #00f7ff,0 0 30px #ff00de;}
+.neon-input,select{width:80%;padding:10px;margin:10px auto;border:2px solid #00f7ff;border-radius:8px;background:transparent;color:#fff;text-align:center;outline:none;box-shadow:0 0 10px #00f7ff,0 0 20px #ff00de;transition:.3s;}
+.neon-input:focus,select:focus{transform:scale(1.05);box-shadow:0 0 20px #00f7ff,0 0 40px #ff00de;}
+.option-btn{display:block;width:100%;padding:12px;margin:8px 0;border:2px solid #00f7ff;color:#00f7ff;background:transparent;border-radius:6px;cursor:pointer;transition:.3s;}
+.option-btn:hover{transform:scale(1.05);box-shadow:0 0 15px #00f7ff,0 0 30px #ff00de;background:rgba(0,247,255,0.1);}
+
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 80%;
+}
+.select-wrapper select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    padding-right: 40px; /* space for arrow */
+    cursor: pointer;
+}
+
+/* Custom Neon Arrow */
+.select-wrapper::after {
+    content: '▼';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00f7ff;
+    font-size: 16px;
+    text-shadow: 0 0 10px #00f7ff, 0 0 20px #ff00de;
+    pointer-events: none;
+}
+
+
+select option {
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+}
+
+
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 80%;
+}
+.select-wrapper select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    padding-right: 40px;
+    cursor: pointer;
+}
+.select-wrapper::after {
+    content: '▼';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00f7ff;
+    font-size: 16px;
+    text-shadow: 0 0 10px #00f7ff, 0 0 20px #ff00de;
+    pointer-events: none;
+}
+
+
+/* Neon Glow Animation for Buttons */
+.neon-btn {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #00f7ff;
+    font-size: 18px;
+    border: 2px solid #00f7ff;
+    border-radius: 8px;
+    background: transparent;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 0 10px #00f7ff, 0 0 20px #ff00de;
+    transition: 0.3s;
+}
+
+.neon-btn:hover {
+    color: #fff;
+    box-shadow: 0 0 20px #00f7ff, 0 0 40px #ff00de, 0 0 60px #00f7ff;
+}
+
+.neon-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(0,247,255,0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: width 0.6s ease-out, height 0.6s ease-out, opacity 0.8s;
+}
+
+.neon-btn:active::after {
+    width: 200px;
+    height: 200px;
+    opacity: 1;
+}
+
+/* Option Button Glow on Hover */
+.option-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    font-size: 16px;
+    color: #fff;
+    background: transparent;
+    border: 2px solid #00f7ff;
+    border-radius: 6px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00f7ff;
+}
+
+.option-btn:hover {
+    box-shadow: 0 0 20px #00f7ff, 0 0 40px #ff00de;
+}
+
+/* Correct Answer Flash */
+.correct-flash {
+    animation: correctFlash 1s infinite alternate;
+}
+@keyframes correctFlash {
+    0% { box-shadow: 0 0 10px #00ff00; }
+    100% { box-shadow: 0 0 25px #00ff00; }
+}
+
+/* Wrong Answer Flash */
+.wrong-flash {
+    animation: wrongFlash 1s infinite alternate;
+}
+@keyframes wrongFlash {
+    0% { box-shadow: 0 0 10px #ff0000; }
+    100% { box-shadow: 0 0 25px #ff0000; }
+}
+
+/* Result Page Gradient Animation */
+
+
+    50% { background: linear-gradient(135deg, #24243e, #302b63, #0f0c29); }
+    100% { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
+}
+
+
+/* Cyberpunk Flowing Background */
+body {
+    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #ff00de, #00f7ff);
+    background-size: 400% 400%;
+    animation: flowingNeon 12s ease infinite;
+}
+
+@keyframes flowingNeon {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Quiz</title><link rel="stylesheet" href="style.css"></head><body><div class="container">
+    <h1 class="neon-text">Quiz Time!</h1>
+    <div class="select-wrapper">
+        <select id="numQuestions" class="neon-input">
+            <option value="5">5 Questions</option>
+            <option value="10">10 Questions</option>
+            <option value="15">15 Questions</option>
+        </select>
+    </div>
+    <button id="startBtn" class="neon-btn" onclick="startQuiz()">START</button>
+    <p id="timer"></p>
+    <div id="quiz-box"></div>
+</div>
+    
+    <p id="timer"></p>
+    <div id="quiz-box"></div>
+</div>
+    
+    <p id="timer"></p>
+    <div id="quiz-box"></div>
+</div>
+</div>
+
+<p id="timer"></p>
+<div id="quiz-box"></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if(!localStorage.getItem('loggedInUser')) location='login.html';
+let qs, idx=0, score=0, timer, timeLeft;
+
+async function startQuiz(){
+    const select=document.getElementById('numQuestions');
+    select.disabled=true;
+    select.style.display='none';
+    document.getElementById('startBtn').style.display='none';
+    const n=select.value;
+    const r=await fetch(`https://opentdb.com/api.php?amount=${n}&type=multiple`);
+    const d=await r.json();
+    qs=d.results;
+    idx=0;
+    score=0;
+    showQ();
+}
+
+function showQ(){
+    clearInterval(timer);
+    timeLeft=60;
+    document.getElementById('timer').style.display='block';
+    document.getElementById('timer').innerText=`Time left: ${timeLeft}s`;
+    timer=setInterval(()=>{
+        timeLeft--;
+        document.getElementById('timer').innerText=`Time left: ${timeLeft}s`;
+        if(timeLeft<=0) nextQ();
+    },1000);
+    const q=qs[idx];
+    let html=`<h3>Question ${idx+1} of ${qs.length}</h3><h3>${q.question}</h3>`;
+    [...q.incorrect_answers,q.correct_answer].sort(()=>Math.random()-0.5).forEach(a=>{
+        html+=`<button class="option-btn" onclick="checkAns('${a}','${q.correct_answer}', this)">${a}</button>`;
+    });
+    document.getElementById('quiz-box').innerHTML=html;
+}
+
+function checkAns(a,c,btn){
+    if(!qs[idx].userAnswer) qs[idx].userAnswer = a;
+    const buttons=document.querySelectorAll('.option-btn');
+    buttons.forEach(button=>{
+        if(button.textContent===c){
+            button.classList.add('correct-flash');
+            button.innerHTML+=' ✅';
+        }
+        if(button.textContent===a && a!==c){
+            button.classList.add('wrong-flash');
+            button.innerHTML+=' ❌';
+        }
+        button.disabled=true;
+    });
+    if(a===c) score++;
+    setTimeout(nextQ,1500);
+}
+
+function nextQ(){
+    clearInterval(timer);
+    idx++;
+    if(idx<qs.length){
+        showQ();
+    } else {
+        document.getElementById('timer').style.display='none';
+        document.querySelector('.neon-text').innerText = 'Result';
+        
+        const msg=(score/qs.length)*100>75?'Good Job!':'Keep Going!';
+        document.getElementById('quiz-box').innerHTML=`
+            <div style="padding:20px;text-align:center;">
+                <h2>${msg}</h2>
+                <p style="font-size:18px;">Your Score: ${score}/${qs.length}</p>
+                <button class="neon-btn" onclick="showScoreDetails()">View Score Details</button>
+                <button class="neon-btn" onclick="window.location.reload()">Play Again</button>
+            </div>
+        `;
+    }
+}
+
+function showScoreDetails(){
+    let detailsHTML = '<h3>Score Details</h3>';
+    qs.forEach((q,i)=>{
+        detailsHTML += `<div style="margin-bottom:15px;text-align:left;">
+            <p><b>Q${i+1}:</b> ${q.question}</p>
+            ${[...q.incorrect_answers,q.correct_answer].sort().map(ans=>{
+                let style = 'padding:8px;border:2px solid #00f7ff;margin:3px;display:inline-block;';
+                if(ans === q.correct_answer){
+                    style += 'color:#00ff00;border-color:#00ff00;';
+                    ans += ' ✅';
+                }
+                if(ans === q.userAnswer && ans !== q.correct_answer){
+                    style += 'color:#ff0000;border-color:#ff0000;';
+                    ans += ' ❌';
+                }
+                return `<span style="${style}">${ans}</span>`;
+            }).join('')}
+        </div>`;
+    });
+    document.getElementById('quiz-box').innerHTML = detailsHTML + '<button class="neon-btn" onclick="window.location.reload()">Play Again</button>';
+}
+</script>
+</body></html>

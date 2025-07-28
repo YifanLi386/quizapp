@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz App</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="neon-text">Welcome to the Quiz!</h1>
+    <p>Select number of questions:</p>
+    <select id="questionCount">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+    </select>
+    <button onclick="startQuiz()" class="neon-btn">Start Quiz</button>
+    <br>
+    <a href="signup.html" class="link-btn">Sign Up</a>
+    <a href="login.html" class="link-btn">Login</a>
+    <a href="leaderboard.html" class="link-btn">Leaderboard</a>
+</div>
+<script>
+function startQuiz(){
+    const count = document.getElementById('questionCount').value;
+    window.location.href = `quiz.html?num=${count}`;
+}
+</script>
+</body>
+</html>
